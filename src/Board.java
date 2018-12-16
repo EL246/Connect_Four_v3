@@ -50,16 +50,9 @@ class Board extends JPanel {
                     }
                 }
 
-//                int colTrans = ((Game.getCOLS() - 1) - c);
                 int rowTrans = ((Game.getROWS() - 1) - r);
-//  int x = (c + 1) * DISC_SPACING + (c * DISC_DIAMETER);
                 int x = CELL_PADDING + c * DISC_SPACING + (c * DISC_DIAMETER);
-//                int x = CELL_PADDING + colTrans * DISC_SPACING + (colTrans * DISC_DIAMETER);
-//                int x = c * DISC_SPACING + (c * DISC_DIAMETER);
-//                int y = (r + 1) * DISC_SPACING + (r * DISC_DIAMETER);
-//                int y = CELL_PADDING + r * DISC_SPACING + (r * DISC_DIAMETER);
                 int y = CELL_PADDING + rowTrans * DISC_SPACING + (rowTrans * DISC_DIAMETER);
-//                int y = r * DISC_SPACING + (r * DISC_DIAMETER);
                 drawDisc(g2d, x, y, color);
             }
         }
@@ -75,23 +68,22 @@ class Board extends JPanel {
         drawRoundedRectangle(g2d, CELL_PADDING, CELL_PADDING, xEnd, yEnd);
     }
 
-    void drawDisc(Graphics2D g2d, int x, int y, Color color) {
+    private void drawDisc(Graphics2D g2d, int x, int y, Color color) {
         g2d.setColor(color);
         g2d.fillOval(x, y, DISC_DIAMETER, DISC_DIAMETER);
     }
 
-    void drawColumnLines(Graphics2D g2d) {
+    private void drawColumnLines(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
 //        int y = DISC_SPACING + (Game.getROWS() * (DISC_DIAMETER + DISC_SPACING));
-        int y = BOARD_HEIGHT;
         for (int i = 1; i < Game.getCOLS(); i++) {
 //            int x = CELL_PADDING + (i * (DISC_DIAMETER + DISC_SPACING));
             int x = i * CELL_SIZE;
-            g2d.drawLine(x, CELL_PADDING, x, y);
+            g2d.drawLine(x, CELL_PADDING, x, BOARD_HEIGHT);
         }
     }
 
-    void drawRoundedRectangle(Graphics2D g2d, int x, int y, int width, int height) {
+    private void drawRoundedRectangle(Graphics2D g2d, int x, int y, int width, int height) {
         g2d.setColor(Color.BLACK);
         g2d.drawRoundRect(x, y, width, height, 10, 10);
     }
@@ -104,7 +96,7 @@ class Board extends JPanel {
         return BOARD_HEIGHT;
     }
 
-    public static int getCellSize() {
+    static int getCellSize() {
         return CELL_SIZE;
     }
 }
