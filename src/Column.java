@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Column {
     private Cell[] cells;
     private int length;
@@ -31,7 +29,7 @@ class Column {
         return cells[length-1].isEmpty();
     }
 
-    int getNextAvailableCellIndex() throws InvalidMoveException {
+    private int getNextAvailableCellIndex() throws InvalidMoveException {
         for (int i = 0; i < cells.length; i++) {
             if (cells[i].isEmpty()) {
                 return i;

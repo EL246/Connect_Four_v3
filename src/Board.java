@@ -1,20 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 class Board extends JPanel {
     private Game game;
 
-    //    private static final int DISC_DIAMETER = CELL_SIZE / 2;
+    /* Dimensions for Board */
     private static final int DISC_DIAMETER = 50;
-    //    private static final int DISC_SPACING = (CELL_SIZE - DISC_DIAMETER) / 2;
-    //    private static final int CELL_PADDING = (CELL_SIZE - DISC_DIAMETER) / 4;
     private static final int CELL_PADDING = DISC_DIAMETER / 4;
     private static final int DISC_SPACING = 2 * CELL_PADDING;
 
-    //    Dimensions for Board
-//    private static final int CELL_SIZE = 100;
     private static final int CELL_SIZE = DISC_DIAMETER + DISC_SPACING;
     private static final int BOARD_WIDTH = CELL_SIZE * (Game.getCOLS());
     private static final int BOARD_HEIGHT = CELL_SIZE * (Game.getROWS());
@@ -57,15 +51,6 @@ class Board extends JPanel {
             }
         }
         drawColumnLines(g2d);
-//        drawBorder(g2d);
-    }
-
-    private void drawBorder(Graphics2D g2d) {
-        int xEnd = CELL_PADDING + (Game.getCOLS() * (DISC_DIAMETER + DISC_SPACING));
-//        int xEnd = (Game.getCOLS() * (DISC_DIAMETER + DISC_SPACING));
-        int yEnd = CELL_PADDING + (Game.getROWS() * (DISC_DIAMETER + DISC_SPACING));
-//        int yEnd = (Game.getROWS() * (DISC_DIAMETER + DISC_SPACING));
-        drawRoundedRectangle(g2d, CELL_PADDING, CELL_PADDING, xEnd, yEnd);
     }
 
     private void drawDisc(Graphics2D g2d, int x, int y, Color color) {
@@ -75,9 +60,7 @@ class Board extends JPanel {
 
     private void drawColumnLines(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
-//        int y = DISC_SPACING + (Game.getROWS() * (DISC_DIAMETER + DISC_SPACING));
         for (int i = 1; i < Game.getCOLS(); i++) {
-//            int x = CELL_PADDING + (i * (DISC_DIAMETER + DISC_SPACING));
             int x = i * CELL_SIZE;
             g2d.drawLine(x, CELL_PADDING, x, BOARD_HEIGHT);
         }

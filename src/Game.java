@@ -6,8 +6,7 @@ public class Game {
     private static final int ROWS = 6;
     private static final int COLS = 7;
 
-    Column[] columns;
-    GameState state;
+    private Column[] columns;
 
     Game() {
         this.columns = new Column[COLS];
@@ -15,7 +14,6 @@ public class Game {
         for (int i = 0; i < COLS; i++) {
             columns[i] = new Column(ROWS);
         }
-        this.state = GameState.INACTIVE;
     }
 
     void insertColumn(int col, Content color) throws InvalidMoveException {
@@ -104,7 +102,7 @@ public class Game {
         return false;
     }
 
-    Cell getCell(int row, int col) {
+    private Cell getCell(int row, int col) {
         return columns[col].getCell(row);
     }
 
@@ -124,11 +122,4 @@ public class Game {
         return columns[index];
     }
 
-    public GameState getState() {
-        return state;
-    }
-
-    public void setState(GameState state) {
-        this.state = state;
-    }
 }

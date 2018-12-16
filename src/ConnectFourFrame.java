@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
 
-public class ConnectFourFrame extends JFrame {
+class ConnectFourFrame extends JFrame {
 
 
     private Game game;
@@ -34,9 +34,8 @@ public class ConnectFourFrame extends JFrame {
         connectFourCanvas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
                 int mouseX = e.getX();
-                int colSelected = mouseX / connectFourCanvas.getCellSize();
+                int colSelected = mouseX / Board.getCellSize();
 
                 if (gameActive) {
                     try {
@@ -54,12 +53,7 @@ public class ConnectFourFrame extends JFrame {
 
                 JButton("New Game");
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startNewGame();
-            }
-        });
+        newGameButton.addActionListener(e -> startNewGame());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new
@@ -74,47 +68,18 @@ public class ConnectFourFrame extends JFrame {
 
                 JLabel("");
         status.setAlignmentX(Component.CENTER_ALIGNMENT);
-//        status.setAlignmentY(Component.BOTTOM_ALIGNMENT);
         statusPane.setBackground(Color.WHITE);
-//        status.setBackground(Color.WHITE);
         statusPane.add(status);
         statusPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-//        statusPane.setMaximumSize(new Dimension(Board.getBoardWidth(),10));
-//        status.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+        add(connectFourCanvas, BorderLayout.CENTER);
+        add(statusPane, BorderLayout.SOUTH);
+        add(buttonPane, BorderLayout.NORTH);
+        pack();
 
-
-//        Container contentPane = this.getContentPane();
-//        contentPane.setLayout(new BoxLayout(contentPane,BoxLayout.Y_AXIS));
-//        contentPane.setLayout(new BorderLayout());
-
-//        setLayout(new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
-        this.
-
-                add(connectFourCanvas, BorderLayout.CENTER);
-//        this.add(status,BorderLayout.SOUTH);
-        this.
-
-                add(statusPane, BorderLayout.SOUTH);
-        this.
-
-                add(buttonPane, BorderLayout.NORTH);
-        this.
-
-                pack();
-
-        this.
-
-                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.
-
-                setTitle("Connect-Four");
-        this.
-
-                setVisible(true);
-        this.
-
-                setResizable(false);
-//        this.setSize(Board.getBoardWidth(),Board.getBoardHeight());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Connect-Four");
+        setVisible(true);
+        setResizable(false);
 
     }
 
@@ -127,13 +92,11 @@ public class ConnectFourFrame extends JFrame {
             alert("GAME OVER, " + currentPlayer + " is the winner!");
         } else {
             switchPlayer();
-//            repaint();
         }
     }
 
-    void startNewGame() {
+    private void startNewGame() {
         game.clear();
-//        game.setState(GameState.ACTIVE);
         gameActive = true;
         yellowPlayerTurn = random.nextBoolean();
         currentPlayer = yellowPlayerTurn ? yellowPlayer : redPlayer;
@@ -143,16 +106,7 @@ public class ConnectFourFrame extends JFrame {
         } catch (InvalidMoveException e) {
             e.printStackTrace();
         }
-//        this.repaint();
-//        playGame();
     }
-
-/*    void playGame() {
-        do {
-
-
-        } while (gameActive);
-    }*/
 
     private void alert(String message) {
         status.setText(message);
