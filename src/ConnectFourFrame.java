@@ -101,11 +101,6 @@ class ConnectFourFrame extends JFrame {
         yellowPlayerTurn = random.nextBoolean();
         currentPlayer = yellowPlayerTurn ? yellowPlayer : redPlayer;
         alert(currentPlayer.toString() + " it is your turn");
-        try {
-            currentPlayer.makeMove(1);
-        } catch (InvalidMoveException e) {
-            e.printStackTrace();
-        }
     }
 
     private void alert(String message) {
