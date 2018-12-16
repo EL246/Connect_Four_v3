@@ -1,7 +1,5 @@
 /* The Game class represents the Connect-Four board */
 
-import java.util.Arrays;
-
 public class Game {
     private static final int ROWS = 6;
     private static final int COLS = 7;
@@ -10,7 +8,6 @@ public class Game {
 
     Game() {
         this.columns = new Column[COLS];
-//        Arrays.fill(columns, new Column(ROWS));
         for (int i = 0; i < COLS; i++) {
             columns[i] = new Column(ROWS);
         }
