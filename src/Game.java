@@ -1,6 +1,6 @@
 /* The Game class represents the Connect-Four board */
 
-public class Game {
+class Game {
     private static final int ROWS = 6;
     private static final int COLS = 7;
 
@@ -56,22 +56,34 @@ public class Game {
 
     private boolean isHorizontalWin(Content color, int row, int col) {
         /* look right */
+        boolean isWin = false;
         if ((col + 3) < COLS) {
-            return (color == getCell(row, col + 1).getContent() &&
-                    color == getCell(row, col + 2).getContent() &&
-                    color == getCell(row, col + 3).getContent());
+            isWin = ((color == getCell(row, col + 1).getContent()) &&
+                    (color == getCell(row, col + 2).getContent()) &&
+                    (color == getCell(row, col + 3).getContent()));
         }
-        return false;
+        if (isWin) {
+            for (int i = 0; i < 4; i++) {
+                highlightCell(row, col + i);
+            }
+        }
+        return isWin;
     }
 
     private boolean isVerticalWin(Content color, int row, int col) {
         /* look up */
+        boolean isWin = false;
         if ((row + 3) < ROWS) {
-            return (color == getCell(row + 1, col).getContent() &&
-                    color == getCell(row + 2, col).getContent() &&
-                    color == getCell(row + 3, col).getContent());
+            isWin = ((color == getCell(row + 1, col).getContent()) &&
+                    (color == getCell(row + 2, col).getContent()) &&
+                    (color == getCell(row + 3, col).getContent()));
         }
-        return false;
+        if (isWin) {
+            for (int i = 0; i < 4; i++) {
+                highlightCell(row + i, col);
+            }
+        }
+        return isWin;
     }
 
     private boolean isDiagonalWin(Content color, int row, int col) {
@@ -82,41 +94,56 @@ public class Game {
     }
 
     private boolean isDownRightDiagonalWin(Content color, int row, int col) {
+        /* look down and right */
+        boolean isWin = false;
         if ((row - 3) >= 0) {
-            return (color == getCell(row - 1, col + 1).getContent() &&
-                    color == getCell(row - 2, col + 2).getContent() &&
-                    color == getCell(row - 3, col + 3).getContent());
+            isWin = ((color == getCell(row - 1, col + 1).getContent()) &&
+                    (color == getCell(row - 2, col + 2).getContent()) &&
+                    (color == getCell(row - 3, col + 3).getContent()));
         }
-        return false;
+        if (isWin) {
+            for (int i = 0; i < 4; i++) {
+                highlightCell(row - i, col + i);
+            }
+        }
+        return isWin;
     }
 
     private boolean isUpRightDiagonalWin(Content color, int row, int col) {
+        /* look up and right */
+        boolean isWin = false;
         if ((row + 3) < ROWS) {
-            return (color == getCell(row + 1, col + 1).getContent() &&
-                    color == getCell(row + 2, col + 2).getContent() &&
-                    color == getCell(row + 3, col + 3).getContent());
+            isWin = ((color == getCell(row + 1, col + 1).getContent()) &&
+                    (color == getCell(row + 2, col + 2).getContent()) &&
+                    (color == getCell(row + 3, col + 3).getContent()));
         }
-        return false;
+        if (isWin) {
+            for (int i = 0; i < 4; i++) {
+                highlightCell(row + i, col + i);
+            }
+        }
+        return isWin;
+    }
+
+    private void highlightCell(int row, int col) {
+        getCell(row, col).highlight();
     }
 
     private Cell getCell(int row, int col) {
         return columns[col].getCell(row);
     }
 
-    static int getROWS() {
-        return ROWS;
-    }
-
-    static int getCOLS() {
-        return COLS;
-    }
-
-    public Column[] getColumns() {
-        return columns;
-    }
-
     Column getColumn(int index) {
         return columns[index];
     }
+
+    static int getNumRows() {
+        return ROWS;
+    }
+
+    static int getNumCols() {
+        return COLS;
+    }
+
 
 }

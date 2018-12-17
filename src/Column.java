@@ -1,3 +1,7 @@
+/*
+    This class represents each column on the game board.
+ */
+
 class Column {
     private Cell[] cells;
     private int length;

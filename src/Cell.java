@@ -1,9 +1,10 @@
 /*
-    This class represents each individual cell on the game board.
+    This class represents each individual cell (slot) on the game board.
  */
 
 class Cell {
     private Content content;
+    private boolean isHighlighted;
 
     Cell() {
         clear();
@@ -11,6 +12,11 @@ class Cell {
 
     void clear() {
         content = Content.EMPTY;
+        isHighlighted = false;
+    }
+
+    void highlight() {
+        isHighlighted = true;
     }
 
     boolean isEmpty() {
@@ -21,6 +27,10 @@ class Cell {
         return content == Content.RED;
     }
 
+    boolean isHighlighted() {
+        return isHighlighted;
+    }
+
     Content getContent() {
         return content;
     }
@@ -28,4 +38,5 @@ class Cell {
     void setContent(Content content) {
         this.content = content;
     }
+
 }
