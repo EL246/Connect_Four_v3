@@ -4,7 +4,7 @@ import java.awt.*;
 /* Graphics for the Connect Four game board */
 
 class Board extends JPanel {
-    private Game game;
+    private final Game game;
 
     /* Dimensions for Board */
     private static final int DISC_DIAMETER = 50;
@@ -14,7 +14,6 @@ class Board extends JPanel {
     private static final int CELL_SIZE = DISC_DIAMETER + DISC_SPACING;
     private static final int BOARD_WIDTH = CELL_SIZE * (Game.getNumCols());
     private static final int BOARD_HEIGHT = CELL_SIZE * (Game.getNumRows());
-
 
     Board(Game game) {
         super();
@@ -59,7 +58,7 @@ class Board extends JPanel {
         drawDisc(g2d, x, y, color);
 
         if (current.isHighlighted()) {
-            drawHighlight(g2d, x,y);
+            drawHighlight(g2d, x, y);
         }
     }
 
@@ -67,7 +66,7 @@ class Board extends JPanel {
         Stroke orig = g2d.getStroke();
         g2d.setColor(Color.PINK);
         g2d.setStroke(new BasicStroke(5));
-        g2d.drawOval(x,y,DISC_DIAMETER,DISC_DIAMETER);
+        g2d.drawOval(x, y, DISC_DIAMETER, DISC_DIAMETER);
         g2d.setStroke(orig);
     }
 
@@ -82,15 +81,6 @@ class Board extends JPanel {
             int x = i * CELL_SIZE;
             g2d.drawLine(x, CELL_PADDING, x, BOARD_HEIGHT);
         }
-    }
-
-
-    public static int getBoardWidth() {
-        return BOARD_WIDTH;
-    }
-
-    public static int getBoardHeight() {
-        return BOARD_HEIGHT;
     }
 
     static int getCellSize() {
