@@ -3,7 +3,7 @@ public enum Content {
     RED("Red"),
     YELLOW("Yellow");
 
-    String name;
+    final String name;
 
     Content(String name) {
         this.name = name;

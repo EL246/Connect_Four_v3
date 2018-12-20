@@ -3,54 +3,47 @@
  */
 
 class Column {
-    private Cell[] cells;
-    private int length;
+    private final Cell[] cells;
+    private final int length;
+    private int nextAvailableIndex;
 
     Column(int rows) {
         this.length = rows;
         this.cells = new Cell[rows];
+        this.nextAvailableIndex = 0;
 
-        for (int i = 0; i < rows; i++){
+        for (int i = 0; i < rows; i++) {
             cells[i] = new Cell();
         }
     }
 
     void insert(Content color) throws InvalidMoveException {
-        if (!hasSpace()) {
-            throw new InvalidMoveException("Cannot insert in full column!");
+        if (!hasSpace() || nextAvailableIndex > length - 1) {
+            throw new InvalidMoveException("column is full");
         }
-        int i = getNextAvailableCellIndex();
-        cells[i].setContent(color);
+        cells[nextAvailableIndex].setContent(color);
+        nextAvailableIndex++;
     }
 
     void clear() {
         for (Cell cell : cells) {
             cell.clear();
         }
+        nextAvailableIndex = 0;
     }
 
     boolean hasSpace() {
-        return cells[length-1].isEmpty();
-    }
-
-    private int getNextAvailableCellIndex() throws InvalidMoveException {
-        for (int i = 0; i < cells.length; i++) {
-            if (cells[i].isEmpty()) {
-                return i;
-            }
-        }
-        throw new InvalidMoveException("No cells available!");
-    }
-
-    Cell[] getColumn() {
-        return cells;
-    }
-
-    int getLength() {
-        return length;
+        return cells[length - 1].isEmpty();
     }
 
     Cell getCell(int index) {
         return cells[index];
+    }
+
+    int getLastFilledIndex() {
+        if (!hasSpace()) {
+            return length - 1;
+        }
+        return (nextAvailableIndex - 1);
     }
 }

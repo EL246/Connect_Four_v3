@@ -1,6 +1,6 @@
 class Player {
-    Content color;
-    Game game;
+    private final Content color;
+    private final Game game;
 
     Player(boolean isYellow, Game game) {
         this.game = game;
@@ -12,7 +12,7 @@ class Player {
     }
 
     void makeMove(int col) throws InvalidMoveException {
-        game.insertColumn(col,color);
+        game.insertColumn(col, color);
     }
 
     @Override

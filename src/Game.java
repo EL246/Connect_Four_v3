@@ -1,16 +1,23 @@
 /* The Game class represents the Connect-Four board */
 
+import java.util.ArrayList;
+
 class Game {
     private static final int ROWS = 6;
     private static final int COLS = 7;
 
-    private Column[] columns;
+    private final Column[] columns;
+    private final ArrayList<GridLocation> winningCells;
+    private boolean isWon;
 
     Game() {
         this.columns = new Column[COLS];
         for (int i = 0; i < COLS; i++) {
             columns[i] = new Column(ROWS);
         }
+
+        isWon = false;
+        winningCells = new ArrayList<>();
     }
 
     void insertColumn(int col, Content color) throws InvalidMoveException {
@@ -21,8 +28,9 @@ class Game {
         for (Column col : columns) {
             col.clear();
         }
+        winningCells.clear();
+        isWon = false;
     }
-
 
     /* returns false is any cell in the top row is empty */
     boolean isDraw() {
@@ -34,95 +42,106 @@ class Game {
         return true;
     }
 
-    /* returns true if the board four consecutive disks of the same color (horizontally, vertically, or diagonally) */
-    boolean isWon() {
-        for (int r = 0; r < ROWS; r++) {
-            for (int c = 0; c < COLS; c++) {
-                Cell cell = columns[c].getCell(r);
-                if (cell.isEmpty()) {
-                    continue;
-                }
-                if (isWinningCell(r, c, cell.getContent())) {
-                    return true;
-                }
-            }
+    /* returns true if the board contains at least four consecutive
+    disks of the same color (horizontally, vertically, or diagonally) */
+    boolean isWon(int row, int col) {
+        checkAllDirections(row, col);
+
+        if (isWon) {
+            highlightWinningCells();
+            return true;
         }
         return false;
     }
 
-    private boolean isWinningCell(int r, int c, Content content) {
-        return (isHorizontalWin(content, r, c) || isVerticalWin(content, r, c) || isDiagonalWin(content, r, c));
+    private void checkAllDirections(int row, int col) {
+        final Content color = getCell(row, col).getContent();
+        checkVerticalWin(row, col, color);
+        checkHorizontalWin(row, col, color);
+        checkDiagonalWin(row, col, color);
     }
 
-    private boolean isHorizontalWin(Content color, int row, int col) {
-        /* look right */
-        boolean isWin = false;
-        if ((col + 3) < COLS) {
-            isWin = ((color == getCell(row, col + 1).getContent()) &&
-                    (color == getCell(row, col + 2).getContent()) &&
-                    (color == getCell(row, col + 3).getContent()));
+    private void checkVerticalWin(int row, int col, Content color) {
+        final SlotDirection direction = SlotDirection.VERTICAL;
+        getLenAndAddWinningSlots(row, col, color, direction);
+    }
+
+    private void checkHorizontalWin(int row, int col, Content color) {
+        final SlotDirection direction = SlotDirection.HORIZONTAL;
+        getLenAndAddWinningSlots(row, col, color, direction);
+    }
+
+    private void checkDiagonalWin(int row, int col, Content color) {
+        checkUpwardDiagonal(row, col, color);
+        checkDownwardDiagonal(row, col, color);
+    }
+
+    private void checkUpwardDiagonal(int row, int col, Content color) {
+        final SlotDirection direction = SlotDirection.UPWARD_DIAGONAL;
+        getLenAndAddWinningSlots(row, col, color, direction);
+    }
+
+    private void checkDownwardDiagonal(int row, int col, Content color) {
+        final SlotDirection direction = SlotDirection.DOWNWARD_DIAGONAL;
+        getLenAndAddWinningSlots(row, col, color, direction);
+    }
+
+
+    private void getLenAndAddWinningSlots(int row, int col, Content color, SlotDirection direction) {
+        GridLocation start = checkCells(row, col, color, true, direction);
+        GridLocation end = checkCells(row, col, color, false, direction);
+
+        int len = start.getDist(end);
+
+        if (len >= 4) {
+            addWinningCells(start, end, direction);
+            isWon = true;
         }
-        if (isWin) {
-            for (int i = 0; i < 4; i++) {
-                highlightCell(row, col + i);
+    }
+
+    private GridLocation checkCells(int r, int c, Content color, boolean checkNegDirection, SlotDirection direction) {
+        int rowIncrement = checkNegDirection ? -direction.getRowIncrement() : direction.getRowIncrement();
+        int colIncrement = checkNegDirection ? -direction.getColIncrement() : direction.getColIncrement();
+
+        while (r + rowIncrement >= 0 && r + rowIncrement < ROWS
+                && c + colIncrement >= 0 && c + colIncrement < COLS) {
+            if (getCell(r + rowIncrement, c + colIncrement).getContent() != color) {
+                break;
             }
+            r = r + rowIncrement;
+            c = c + colIncrement;
         }
-        return isWin;
+        return new GridLocation(r, c);
     }
 
-    private boolean isVerticalWin(Content color, int row, int col) {
-        /* look up */
-        boolean isWin = false;
-        if ((row + 3) < ROWS) {
-            isWin = ((color == getCell(row + 1, col).getContent()) &&
-                    (color == getCell(row + 2, col).getContent()) &&
-                    (color == getCell(row + 3, col).getContent()));
-        }
-        if (isWin) {
-            for (int i = 0; i < 4; i++) {
-                highlightCell(row + i, col);
-            }
-        }
-        return isWin;
+    private void addWinningCells(GridLocation start, GridLocation end, SlotDirection direction) {
+        if (start.getR() < end.getR()) {
+            addWinningCellsByRow(start, end, direction);
+        } else addWinningCellsByCol(start, end, direction);
     }
 
-    private boolean isDiagonalWin(Content color, int row, int col) {
-        if ((col + 3) < COLS) {
-            return isUpRightDiagonalWin(color, row, col) || isDownRightDiagonalWin(color, row, col);
+    private void addWinningCellsByRow(GridLocation start, GridLocation end, SlotDirection dir) {
+        int c = start.getC();
+        int colInc = dir.getColIncrement();
+        for (int r = start.getR(); r <= end.getR(); r++) {
+            winningCells.add(new GridLocation(r, c));
+            c = c + colInc;
         }
-        return false;
     }
 
-    private boolean isDownRightDiagonalWin(Content color, int row, int col) {
-        /* look down and right */
-        boolean isWin = false;
-        if ((row - 3) >= 0) {
-            isWin = ((color == getCell(row - 1, col + 1).getContent()) &&
-                    (color == getCell(row - 2, col + 2).getContent()) &&
-                    (color == getCell(row - 3, col + 3).getContent()));
+    private void addWinningCellsByCol(GridLocation start, GridLocation end, SlotDirection dir) {
+        int r = start.getR();
+        int rowInc = dir.getRowIncrement();
+        for (int c = start.getC(); c <= end.getC(); c++) {
+            winningCells.add(new GridLocation(r, c));
+            r = r + rowInc;
         }
-        if (isWin) {
-            for (int i = 0; i < 4; i++) {
-                highlightCell(row - i, col + i);
-            }
-        }
-        return isWin;
     }
 
-    private boolean isUpRightDiagonalWin(Content color, int row, int col) {
-        /* look up and right */
-        boolean isWin = false;
-        if ((row + 3) < ROWS) {
-            isWin = ((color == getCell(row + 1, col + 1).getContent()) &&
-                    (color == getCell(row + 2, col + 2).getContent()) &&
-                    (color == getCell(row + 3, col + 3).getContent()));
+    private void highlightWinningCells() {
+        for (GridLocation loc : winningCells) {
+            highlightCell(loc.getR(), loc.getC());
         }
-        if (isWin) {
-            for (int i = 0; i < 4; i++) {
-                highlightCell(row + i, col + i);
-            }
-        }
-        return isWin;
     }
 
     private void highlightCell(int row, int col) {
@@ -144,6 +163,4 @@ class Game {
     static int getNumCols() {
         return COLS;
     }
-
-
 }

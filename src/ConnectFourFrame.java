@@ -7,18 +7,16 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 
 class ConnectFourFrame extends JFrame {
-
-
-    private Game game;
+    private final Game game;
     private boolean gameActive = false;
 
-    private Player redPlayer;
-    private Player yellowPlayer;
+    private final Player redPlayer;
+    private final Player yellowPlayer;
     private Player currentPlayer;
-    private Random random;
+    private final Random random;
     private boolean yellowPlayerTurn;
 
-    private Board connectFourCanvas;
+    private final Board connectFourCanvas;
     private JLabel status;
 
     ConnectFourFrame(Game game) {
@@ -48,7 +46,7 @@ class ConnectFourFrame extends JFrame {
 
     private JPanel createStatusPane() {
         JPanel statusPane = new JPanel();
-        status = new JLabel("Welcome to Connect Four");
+        status = new JLabel("Welcome to Connect Four!");
         status.setAlignmentX(Component.CENTER_ALIGNMENT);
         statusPane.setBackground(Color.WHITE);
         statusPane.add(status);
@@ -77,17 +75,18 @@ class ConnectFourFrame extends JFrame {
                 if (gameActive) {
                     try {
                         currentPlayer.makeMove(colSelected);
-                        updateGame();
+                        updateGame(colSelected);
                     } catch (InvalidMoveException e1) {
-                        alert(currentPlayer.toString() + " invalid move, try again");
+                        alert(currentPlayer.toString() + " invalid move, try again. (" + e1.getMessage() + ")");
                     }
                 }
             }
         });
     }
 
-    private void updateGame() {
-        if (game.isWon()) {
+    private void updateGame(int colSelected) {
+        int rowInserted = game.getColumn(colSelected).getLastFilledIndex();
+        if (game.isWon(rowInserted, colSelected)) {
             gameActive = false;
             alert("CONGRATULATIONS, " + currentPlayer + " is the winner!");
         } else if (game.isDraw()) {

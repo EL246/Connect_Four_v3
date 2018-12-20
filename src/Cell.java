@@ -38,5 +38,4 @@ class Cell {
     void setContent(Content content) {
         this.content = content;
     }
-
 }
