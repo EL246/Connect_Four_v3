@@ -32,7 +32,7 @@ class Game {
         isWon = false;
     }
 
-    /* returns false is any cell in the top row is empty */
+    /* returns false if any cell in the top row is empty */
     boolean isDraw() {
         for (int col = 0; col < COLS; col++) {
             if (columns[col].hasSpace()) {
@@ -117,7 +117,9 @@ class Game {
     private void addWinningCells(GridLocation start, GridLocation end, SlotDirection direction) {
         if (start.getR() < end.getR()) {
             addWinningCellsByRow(start, end, direction);
-        } else addWinningCellsByCol(start, end, direction);
+        } else {
+            addWinningCellsByCol(start, end, direction);
+        }
     }
 
     private void addWinningCellsByRow(GridLocation start, GridLocation end, SlotDirection dir) {

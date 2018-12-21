@@ -46,7 +46,7 @@ class ConnectFourFrame extends JFrame {
 
     private JPanel createStatusPane() {
         JPanel statusPane = new JPanel();
-        status = new JLabel("Welcome to Connect Four!");
+        status = new JLabel("Welcome to Connect Four! Press \"New Game\" to start");
         status.setAlignmentX(Component.CENTER_ALIGNMENT);
         statusPane.setBackground(Color.WHITE);
         statusPane.add(status);

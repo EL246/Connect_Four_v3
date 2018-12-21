@@ -18,7 +18,7 @@ class Column {
     }
 
     void insert(Content color) throws InvalidMoveException {
-        if (!hasSpace() || nextAvailableIndex > length - 1) {
+        if (!hasSpace()) {
             throw new InvalidMoveException("column is full");
         }
         cells[nextAvailableIndex].setContent(color);
@@ -33,7 +33,7 @@ class Column {
     }
 
     boolean hasSpace() {
-        return cells[length - 1].isEmpty();
+        return nextAvailableIndex < length;
     }
 
     Cell getCell(int index) {
@@ -41,9 +41,6 @@ class Column {
     }
 
     int getLastFilledIndex() {
-        if (!hasSpace()) {
-            return length - 1;
-        }
         return (nextAvailableIndex - 1);
     }
 }
