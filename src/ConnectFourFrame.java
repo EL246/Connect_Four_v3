@@ -1,10 +1,10 @@
-/* Two-Player Connect-Four Graphics */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Random;
+
+/* Two-Player Connect-Four Graphics */
 
 class ConnectFourFrame extends JFrame {
     private final Game game;
@@ -116,4 +116,3 @@ class ConnectFourFrame extends JFrame {
         alert(currentPlayer.toString() + " it is your turn");
     }
 }
-

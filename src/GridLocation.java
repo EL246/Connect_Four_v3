@@ -1,4 +1,8 @@
-/* This class represents a location on the Connect-Four grid, represented by a row and a column */
+/*
+ * This class represents a location on the
+ * Connect-Four grid, represented by a row and a column
+ * */
+
 class GridLocation {
     private final int row;
     private final int col;

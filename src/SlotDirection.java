@@ -1,4 +1,5 @@
-/* specifies the direction of a line of consecutive slots */
+/* This class specifies the direction of a line of consecutive slots */
+
 enum SlotDirection {
     HORIZONTAL(0, 1),
     VERTICAL(1, 0),

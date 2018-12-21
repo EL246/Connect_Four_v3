@@ -1,5 +1,5 @@
 /*
-    This class represents each column on the game board.
+ * This class represents each column on the game board.
  */
 
 class Column {
