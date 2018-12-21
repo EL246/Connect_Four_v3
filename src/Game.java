@@ -1,4 +1,4 @@
-/* The Game class represents the Connect-Four board */
+/* The Game class represents the Connect-Four game */
 
 import java.util.ArrayList;
 
