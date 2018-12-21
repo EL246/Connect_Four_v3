@@ -3,7 +3,7 @@ import java.awt.*;
 
 /* Graphics for the Connect Four game board */
 
-class Board extends JPanel {
+class BoardGraphic extends JPanel {
     private final Game game;
 
     /* Dimensions for Board */
@@ -15,7 +15,7 @@ class Board extends JPanel {
     private static final int BOARD_WIDTH = CELL_SIZE * (Game.getNumCols());
     private static final int BOARD_HEIGHT = CELL_SIZE * (Game.getNumRows());
 
-    Board(Game game) {
+    BoardGraphic(Game game) {
         super();
         this.game = game;
         this.setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));

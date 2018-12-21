@@ -16,7 +16,7 @@ class ConnectFourFrame extends JFrame {
     private final Random random;
     private boolean yellowPlayerTurn;
 
-    private final Board connectFourCanvas;
+    private final BoardGraphic connectFourCanvas;
     private JLabel status;
 
     ConnectFourFrame(Game game) {
@@ -25,7 +25,7 @@ class ConnectFourFrame extends JFrame {
         this.redPlayer = new Player(false, game);
         this.yellowPlayer = new Player(true, game);
         random = new Random();
-        connectFourCanvas = new Board(game);
+        connectFourCanvas = new BoardGraphic(game);
 
         addBoardMouseListener();
 
@@ -70,7 +70,7 @@ class ConnectFourFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
-                int colSelected = mouseX / Board.getCellSize();
+                int colSelected = mouseX / BoardGraphic.getCellSize();
 
                 if (gameActive) {
                     try {

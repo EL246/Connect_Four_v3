@@ -115,7 +115,7 @@ class Game {
     }
 
     private void addWinningCells(GridLocation start, GridLocation end, SlotDirection direction) {
-        if (start.getR() < end.getR()) {
+        if (start.getRow() < end.getRow()) {
             addWinningCellsByRow(start, end, direction);
         } else {
             addWinningCellsByCol(start, end, direction);
@@ -123,18 +123,18 @@ class Game {
     }
 
     private void addWinningCellsByRow(GridLocation start, GridLocation end, SlotDirection dir) {
-        int c = start.getC();
+        int c = start.getCol();
         int colInc = dir.getColIncrement();
-        for (int r = start.getR(); r <= end.getR(); r++) {
+        for (int r = start.getRow(); r <= end.getRow(); r++) {
             winningCells.add(new GridLocation(r, c));
             c = c + colInc;
         }
     }
 
     private void addWinningCellsByCol(GridLocation start, GridLocation end, SlotDirection dir) {
-        int r = start.getR();
+        int r = start.getRow();
         int rowInc = dir.getRowIncrement();
-        for (int c = start.getC(); c <= end.getC(); c++) {
+        for (int c = start.getCol(); c <= end.getCol(); c++) {
             winningCells.add(new GridLocation(r, c));
             r = r + rowInc;
         }
@@ -142,7 +142,7 @@ class Game {
 
     private void highlightWinningCells() {
         for (GridLocation loc : winningCells) {
-            highlightCell(loc.getR(), loc.getC());
+            highlightCell(loc.getRow(), loc.getCol());
         }
     }
 
