@@ -1,13 +1,13 @@
-/*
+package main.java.connect4.board;/*
  * This class represents each column on the game board.
  */
 
-class Column {
+public class Column {
     private final Cell[] cells;
     private final int length;
     private int nextAvailableIndex;
 
-    Column(int rows) {
+    public Column(int rows) {
         this.length = rows;
         this.cells = new Cell[rows];
         this.nextAvailableIndex = 0;
@@ -17,7 +17,7 @@ class Column {
         }
     }
 
-    void insert(Content color) throws InvalidMoveException {
+    public void insert(Content color) throws InvalidMoveException {
         if (!hasSpace()) {
             throw new InvalidMoveException("column is full");
         }
@@ -25,22 +25,22 @@ class Column {
         nextAvailableIndex++;
     }
 
-    void clear() {
+    public void clear() {
         for (Cell cell : cells) {
             cell.clear();
         }
         nextAvailableIndex = 0;
     }
 
-    boolean hasSpace() {
+    public boolean hasSpace() {
         return nextAvailableIndex < length;
     }
 
-    Cell getCell(int index) {
+    public Cell getCell(int index) {
         return cells[index];
     }
 
-    int getLastFilledIndex() {
+    public int getLastFilledIndex() {
         return (nextAvailableIndex - 1);
     }
 }

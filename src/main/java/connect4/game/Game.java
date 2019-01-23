@@ -1,8 +1,12 @@
+package main.java.connect4.game;
+
 /* The Game class represents the Connect-Four game */
+
+import main.java.connect4.board.*;
 
 import java.util.ArrayList;
 
-class Game {
+public class Game {
     private static final int ROWS = 6;
     private static final int COLS = 7;
 
@@ -10,7 +14,7 @@ class Game {
     private final ArrayList<GridLocation> winningCells;
     private boolean isWon;
 
-    Game() {
+    public Game() {
         this.columns = new Column[COLS];
         for (int i = 0; i < COLS; i++) {
             columns[i] = new Column(ROWS);
@@ -20,11 +24,11 @@ class Game {
         winningCells = new ArrayList<>();
     }
 
-    void insertColumn(int col, Content color) throws InvalidMoveException {
+    public void insertColumn(int col, Content color) throws InvalidMoveException {
         columns[col].insert(color);
     }
 
-    void clear() {
+    public void clear() {
         for (Column col : columns) {
             col.clear();
         }
@@ -33,7 +37,7 @@ class Game {
     }
 
     /* returns false if any cell in the top row is empty */
-    boolean isDraw() {
+    public boolean isDraw() {
         for (int col = 0; col < COLS; col++) {
             if (columns[col].hasSpace()) {
                 return false;
@@ -44,7 +48,7 @@ class Game {
 
     /* returns true if the board contains at least four consecutive
     disks of the same color (horizontally, vertically, or diagonally) */
-    boolean isWon(int row, int col) {
+    public boolean isWon(int row, int col) {
         checkAllDirections(row, col);
 
         if (isWon) {
@@ -154,15 +158,15 @@ class Game {
         return columns[col].getCell(row);
     }
 
-    Column getColumn(int index) {
+    public Column getColumn(int index) {
         return columns[index];
     }
 
-    static int getNumRows() {
+    public static int getNumRows() {
         return ROWS;
     }
 
-    static int getNumCols() {
+    public static int getNumCols() {
         return COLS;
     }
 }

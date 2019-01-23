@@ -1,8 +1,14 @@
-class Player {
+package main.java.connect4.player;
+
+import main.java.connect4.board.InvalidMoveException;
+import main.java.connect4.board.Content;
+import main.java.connect4.game.Game;
+
+public class Player {
     private final Content color;
     private final Game game;
 
-    Player(boolean isYellow, Game game) {
+    public Player(boolean isYellow, Game game) {
         this.game = game;
         if (isYellow) {
             this.color = Content.YELLOW;
@@ -11,7 +17,7 @@ class Player {
         }
     }
 
-    void makeMove(int col) throws InvalidMoveException {
+    public void makeMove(int col) throws InvalidMoveException {
         game.insertColumn(col, color);
     }
 

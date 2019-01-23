@@ -1,3 +1,5 @@
+package main.java.connect4.board;
+
 public enum Content {
     EMPTY("Empty"),
     RED("Red"),

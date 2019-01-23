@@ -1,3 +1,9 @@
+package main.java.connect4.gui;
+
+import main.java.connect4.game.Game;
+import main.java.connect4.board.InvalidMoveException;
+import main.java.connect4.player.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -6,7 +12,7 @@ import java.util.Random;
 
 /* Two-Player Connect-Four Graphics */
 
-class ConnectFourFrame extends JFrame {
+public class ConnectFourFrame extends JFrame {
     private final Game game;
     private boolean gameActive = false;
 
@@ -19,7 +25,7 @@ class ConnectFourFrame extends JFrame {
     private final BoardGraphic connectFourCanvas;
     private JLabel status;
 
-    ConnectFourFrame(Game game) {
+    public ConnectFourFrame(Game game) {
         super();
         this.game = game;
         this.redPlayer = new Player(false, game);

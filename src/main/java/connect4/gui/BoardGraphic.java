@@ -1,3 +1,8 @@
+package main.java.connect4.gui;
+
+import main.java.connect4.board.Cell;
+import main.java.connect4.game.Game;
+
 import javax.swing.*;
 import java.awt.*;
 

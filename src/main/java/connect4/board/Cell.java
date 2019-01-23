@@ -1,8 +1,9 @@
+package main.java.connect4.board;
 /*
  * This class represents each individual cell (slot) on the game board.
  */
 
-class Cell {
+public class Cell {
     private Content content;
     private boolean isHighlighted;
 
@@ -15,23 +16,23 @@ class Cell {
         isHighlighted = false;
     }
 
-    void highlight() {
+    public void highlight() {
         isHighlighted = true;
     }
 
-    boolean isEmpty() {
+    public boolean isEmpty() {
         return content == Content.EMPTY;
     }
 
-    boolean isRed() {
+    public boolean isRed() {
         return content == Content.RED;
     }
 
-    boolean isHighlighted() {
+    public boolean isHighlighted() {
         return isHighlighted;
     }
 
-    Content getContent() {
+    public Content getContent() {
         return content;
     }
 
