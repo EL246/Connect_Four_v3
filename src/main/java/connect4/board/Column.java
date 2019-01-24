@@ -1,4 +1,5 @@
-package main.java.connect4.board;/*
+package main.java.connect4.board;
+/*
  * This class represents each column on the game board.
  */
 

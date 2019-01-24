@@ -1,42 +1,27 @@
 package main.java.connect4.gui;
 
-import main.java.connect4.game.Game;
-import main.java.connect4.board.InvalidMoveException;
-import main.java.connect4.player.*;
+import main.java.connect4.game.GameController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
 
 /* Two-Player Connect-Four Graphics */
 
 public class ConnectFourFrame extends JFrame {
-    private final Game game;
-    private boolean gameActive = false;
-
-    private final Player redPlayer;
-    private final Player yellowPlayer;
-    private Player currentPlayer;
-    private final Random random;
-    private boolean yellowPlayerTurn;
-
+    private final GameController gameController;
     private final BoardGraphic connectFourCanvas;
     private JLabel status;
 
-    public ConnectFourFrame(Game game) {
+    public ConnectFourFrame() {
         super();
-        this.game = game;
-        this.redPlayer = new Player(false, game);
-        this.yellowPlayer = new Player(true, game);
-        random = new Random();
-        connectFourCanvas = new BoardGraphic(game);
+        gameController = new GameController(this);
+        connectFourCanvas = new BoardGraphic(gameController.getGame());
 
         addBoardMouseListener();
 
         JPanel buttonPane = createButtonPane();
-
         JPanel statusPane = createStatusPane();
 
         add(connectFourCanvas, BorderLayout.CENTER);
@@ -48,6 +33,11 @@ public class ConnectFourFrame extends JFrame {
         setTitle("Connect-Four");
         setVisible(true);
         setResizable(false);
+    }
+
+    public void alert(String message) {
+        status.setText(message);
+        this.repaint();
     }
 
     private JPanel createStatusPane() {
@@ -63,7 +53,7 @@ public class ConnectFourFrame extends JFrame {
     private JPanel createButtonPane() {
         JButton newGameButton = new JButton("New Game");
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newGameButton.addActionListener(e -> startNewGame());
+        newGameButton.addActionListener(e -> gameController.startNewGame());
 
         JPanel buttonPane = new JPanel();
         buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
@@ -77,48 +67,8 @@ public class ConnectFourFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
                 int colSelected = mouseX / BoardGraphic.getCellSize();
-
-                if (gameActive) {
-                    try {
-                        currentPlayer.makeMove(colSelected);
-                        updateGame(colSelected);
-                    } catch (InvalidMoveException e1) {
-                        alert(currentPlayer.toString() + " invalid move, try again. (" + e1.getMessage() + ")");
-                    }
-                }
+                gameController.updateColSelected(colSelected);
             }
         });
-    }
-
-    private void updateGame(int colSelected) {
-        int rowInserted = game.getColumn(colSelected).getLastFilledIndex();
-        if (game.isWon(rowInserted, colSelected)) {
-            gameActive = false;
-            alert("CONGRATULATIONS, " + currentPlayer + " is the winner!");
-        } else if (game.isDraw()) {
-            gameActive = false;
-            alert("GAME OVER, it is a draw!");
-        } else {
-            switchPlayer();
-        }
-    }
-
-    private void startNewGame() {
-        game.clear();
-        gameActive = true;
-        yellowPlayerTurn = random.nextBoolean();
-        currentPlayer = yellowPlayerTurn ? yellowPlayer : redPlayer;
-        alert(currentPlayer.toString() + " it is your turn");
-    }
-
-    private void alert(String message) {
-        status.setText(message);
-        this.repaint();
-    }
-
-    private void switchPlayer() {
-        yellowPlayerTurn = !yellowPlayerTurn;
-        currentPlayer = yellowPlayerTurn ? yellowPlayer : redPlayer;
-        alert(currentPlayer.toString() + " it is your turn");
     }
 }

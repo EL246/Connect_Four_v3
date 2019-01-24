@@ -14,7 +14,7 @@ public class Game {
     private final ArrayList<GridLocation> winningCells;
     private boolean isWon;
 
-    public Game() {
+    Game() {
         this.columns = new Column[COLS];
         for (int i = 0; i < COLS; i++) {
             columns[i] = new Column(ROWS);
@@ -28,7 +28,7 @@ public class Game {
         columns[col].insert(color);
     }
 
-    public void clear() {
+    void clear() {
         for (Column col : columns) {
             col.clear();
         }
@@ -37,7 +37,7 @@ public class Game {
     }
 
     /* returns false if any cell in the top row is empty */
-    public boolean isDraw() {
+    boolean isDraw() {
         for (int col = 0; col < COLS; col++) {
             if (columns[col].hasSpace()) {
                 return false;
@@ -48,7 +48,7 @@ public class Game {
 
     /* returns true if the board contains at least four consecutive
     disks of the same color (horizontally, vertically, or diagonally) */
-    public boolean isWon(int row, int col) {
+    boolean isWon(int row, int col) {
         checkAllDirections(row, col);
 
         if (isWon) {
