@@ -1,7 +1,6 @@
 package main.java.connect4.board;
-/*
- * This class represents each individual cell (slot) on the game board.
- */
+
+/* This class represents each individual cell (slot) on the game board. */
 
 public class Cell {
     private Content content;

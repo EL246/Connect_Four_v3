@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/* Two-Player Connect-Four Graphics */
+/* Graphics for the Connect Four game */
 
 public class ConnectFourFrame extends JFrame {
     private final GameController gameController;

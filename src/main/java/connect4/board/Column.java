@@ -1,7 +1,6 @@
 package main.java.connect4.board;
-/*
- * This class represents each column on the game board.
- */
+
+/* This class represents each column on the game board. */
 
 public class Column {
     private final Cell[] cells;

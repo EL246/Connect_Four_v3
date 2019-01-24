@@ -1,6 +1,6 @@
 package main.java.connect4.game;
 
-/* The Game class represents the Connect-Four game */
+/* The Game class represents the Connect-Four game grid. */
 
 import main.java.connect4.board.*;
 

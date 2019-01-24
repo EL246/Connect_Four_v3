@@ -1,6 +1,6 @@
 package main.java.connect4.game;
 
-/* This class specifies the direction of a line of consecutive slots */
+/* This class specifies the direction of a line of consecutive slots. */
 
 enum SlotDirection {
     HORIZONTAL(0, 1),

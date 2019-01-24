@@ -1,5 +1,7 @@
 package main.java.connect4.game;
 
+/* The GameController class controls the game play and updates the ConnectFourFrame. */
+
 import main.java.connect4.board.InvalidMoveException;
 import main.java.connect4.gui.ConnectFourFrame;
 import main.java.connect4.player.Player;
