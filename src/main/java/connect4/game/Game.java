@@ -60,36 +60,10 @@ public class Game {
 
     private void checkAllDirections(int row, int col) {
         final Content color = getCell(row, col).getContent();
-        checkVerticalWin(row, col, color);
-        checkHorizontalWin(row, col, color);
-        checkDiagonalWin(row, col, color);
+        for (SlotDirection direction : SlotDirection.values()) {
+            getLenAndAddWinningSlots(row,col,color,direction);
+        }
     }
-
-    private void checkVerticalWin(int row, int col, Content color) {
-        final SlotDirection direction = SlotDirection.VERTICAL;
-        getLenAndAddWinningSlots(row, col, color, direction);
-    }
-
-    private void checkHorizontalWin(int row, int col, Content color) {
-        final SlotDirection direction = SlotDirection.HORIZONTAL;
-        getLenAndAddWinningSlots(row, col, color, direction);
-    }
-
-    private void checkDiagonalWin(int row, int col, Content color) {
-        checkUpwardDiagonal(row, col, color);
-        checkDownwardDiagonal(row, col, color);
-    }
-
-    private void checkUpwardDiagonal(int row, int col, Content color) {
-        final SlotDirection direction = SlotDirection.UPWARD_DIAGONAL;
-        getLenAndAddWinningSlots(row, col, color, direction);
-    }
-
-    private void checkDownwardDiagonal(int row, int col, Content color) {
-        final SlotDirection direction = SlotDirection.DOWNWARD_DIAGONAL;
-        getLenAndAddWinningSlots(row, col, color, direction);
-    }
-
 
     private void getLenAndAddWinningSlots(int row, int col, Content color, SlotDirection direction) {
         GridLocation start = checkCells(row, col, color, true, direction);
