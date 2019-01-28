@@ -92,4 +92,3 @@ class BoardGraphic extends JPanel {
         return CELL_SIZE;
     }
 }
-
