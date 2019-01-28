@@ -24,5 +24,4 @@ class GridLocation {
     int getCol() {
         return col;
     }
-
 }

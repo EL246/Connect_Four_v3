@@ -36,7 +36,6 @@ public class GameController {
         frame.alert(currentPlayer.toString() + " it is your turn");
     }
 
-
     public void updateColSelected(int colSelected) {
         if (gameActive) {
             try {
